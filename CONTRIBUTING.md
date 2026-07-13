@@ -8,7 +8,6 @@ This document covers how we work in this repo: commit message format, branch wor
 - [Branch workflow](#branch-workflow)
 - [Setting up the backend (Maven)](#setting-up-the-backend-maven)
 - [Setting up the frontend (npm)](#setting-up-the-frontend-npm)
-- [Running the full stack](#running-the-full-stack)
 
 ---
 
