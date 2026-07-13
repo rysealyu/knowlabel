@@ -1,3 +1,11 @@
+# IDE Configurations
+.vscode/
+.settings/
+
+# Secrets
+.env
+
+# Java
 # Compiled class file
 *.class
 
