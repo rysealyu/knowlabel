@@ -3,6 +3,13 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>4.1.0</version>
+    <relativePath/>
+  </parent>
+
   <groupId>com.knowlabel</groupId>
   <artifactId>backend</artifactId>
   <version>1.0-SNAPSHOT</version>
@@ -47,33 +54,41 @@
         <version>5.2.2</version>
         <scope>compile</scope>
     </dependency>
+    <!-- Source: https://mvnrepository.com/artifact/com.infisical/sdk -->
+    <dependency>
+        <groupId>com.infisical</groupId>
+        <artifactId>sdk</artifactId>
+        <version>3.0.5</version>
+        <scope>compile</scope>
+    </dependency>
     <!-- Source: https://jdbc.postgresql.org/download/ -->
     <dependency>
         <groupId>org.postgresql</groupId>
         <artifactId>postgresql</artifactId>
         <version>42.7.13</version>
     </dependency>
-    <!-- Source: https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web -->
     <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-web</artifactId>
-        <version>4.1.0</version>
-        <scope>compile</scope>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
-    <!-- Source: https://mvnrepository.com/artifact/org.springframework.data/spring-data-jpa -->
     <dependency>
-        <groupId>org.springframework.data</groupId>
-        <artifactId>spring-data-jpa</artifactId>
-        <version>4.1.0</version>
-        <scope>compile</scope>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-webflux</artifactId>
     </dependency>
-    <!-- Source: https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security -->
     <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-security</artifactId>
-        <version>4.1.0</version>
-        <scope>compile</scope>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-security</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-devtools</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <!-- Add this back when a Database is setup -->
+    <!-- <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency> -->
   </dependencies>
 
   <build>
@@ -117,6 +132,10 @@
         <plugin>
           <artifactId>maven-project-info-reports-plugin</artifactId>
           <version>3.6.1</version>
+        </plugin>
+        <plugin>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-maven-plugin</artifactId>
         </plugin>
       </plugins>
     </pluginManagement>

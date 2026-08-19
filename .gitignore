@@ -1,11 +1,15 @@
 # IDE Configurations
 .vscode/
 .settings/
+.zed/
 
 # Secrets
+application.properties
 .env
 
 # Java
+target/
+
 # Compiled class file
 *.class
 
