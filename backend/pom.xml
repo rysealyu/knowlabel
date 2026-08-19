@@ -79,6 +79,11 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-security</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-devtools</artifactId>
+      <optional>true</optional>
+    </dependency>
     <!-- Add this back when a Database is setup -->
     <!-- <dependency>
       <groupId>org.springframework.boot</groupId>

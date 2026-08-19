@@ -11,6 +11,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 @Configuration
 public class InciApiConfig {
+    @Value("${inci.api-key}")
     private final String apiKey;
 
     public InciApiConfig(
