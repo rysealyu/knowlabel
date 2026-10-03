@@ -21,7 +21,7 @@ public class IngredientService {
         this.inciWebClient = inciWebClient;
     }
 
-    public JsonNode anaylizeIngredients(List<String> ingredients) {
+    public JsonNode analyzeIngredients(List<String> ingredients) {
         Map<String, Object> body = new HashMap<>();
         body.put("inci", ingredients);
 

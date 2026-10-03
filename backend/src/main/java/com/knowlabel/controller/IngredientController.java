@@ -24,8 +24,8 @@ public class IngredientController {
     }
 
     @PostMapping("/analyze")
-    public JsonNode anaylizeIngredients(@RequestBody List<String> ingredients) {
-        return ingredientService.anaylizeIngredients(ingredients);
+    public JsonNode analyzeIngredients(@RequestBody List<String> ingredients) {
+        return ingredientService.analyzeIngredients(ingredients);
     }
     
 }
