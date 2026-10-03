@@ -18,7 +18,6 @@ import java.util.concurrent.TimeUnit;
 @Configuration 
 @EnableCaching 
 public class CacheConfig {
-
     @Bean 
     public CacheManager cacheManager() {
         SimpleCacheManager cacheManager = new SimpleCacheManager();
@@ -35,7 +34,7 @@ public class CacheConfig {
 
         // 2. Overall Product Analysis Cache
         // - 5,000 max items (to protect JVM memory due to heavy JSON payloads) with an expiration date of 24 hours (1 day)
-        CaffeineCache productAnalysisCache = new CaffeineCache("productAnalysis", 
+        CaffeineCache productAnalysisCache = new CaffeineCache("ingredientsAnalysis", 
                 Caffeine.newBuilder()
                         .maximumSize(5_000)
                         .expireAfterWrite(24, TimeUnit.HOURS)
