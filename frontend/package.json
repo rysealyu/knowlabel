@@ -10,7 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "axios": "^1.18.1",
+    "axios": "^1.20.0",
+    "better-npm-audit": "^3.11.0",
+    "eslint-config-prettier": "^10.1.8",
+    "knip": "^6.39.0",
+    "prettier": "^3.9.9",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "react-helmet-async": "^3.0.0",
