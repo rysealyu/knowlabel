@@ -20,7 +20,29 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.release>17</maven.compiler.release>
+
+    <!-- Upgrades to patch verified vulnerabilities managed by parent -->
+    <tomcat.version>11.0.25</tomcat.version>
+    <netty.version>4.2.17.Final</netty.version>
+    <postgresql.version>42.7.12</postgresql.version>
+    <log4j2.version>2.25.5</log4j2.version>
+
+    <!-- Jackson 3.x (Spring Boot 4 default) -->
+    <jackson-bom.version>3.1.7</jackson-bom.version>
   </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <!-- Enforce patched Jackson 2.x across all transitive starters -->
+      <dependency>
+        <groupId>com.fasterxml.jackson</groupId>
+        <artifactId>jackson-bom</artifactId>
+        <version>2.21.7</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <dependencies>
     <!-- Java Dotenv -->
@@ -65,12 +87,9 @@
       <artifactId>spring-boot-devtools</artifactId>
       <optional>true</optional>
     </dependency>
-    <!-- Source: https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-json -->
     <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-json</artifactId>
-        <version>4.2.0-M2</version>
-        <scope>compile</scope>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-json</artifactId>
     </dependency>
 
     <!-- Caffeine Cache -->
@@ -90,19 +109,18 @@
       <artifactId>spring-boot-starter-webmvc-test</artifactId>
       <scope>test</scope>
     </dependency>
-    <!-- Source: https://mvnrepository.com/artifact/org.apache.commons/commons-collections4 -->
+
     <dependency>
-        <groupId>org.apache.commons</groupId>
-        <artifactId>commons-collections4</artifactId>
-        <version>4.6.0</version>
-        <scope>compile</scope>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-collections4</artifactId>
+      <version>4.6.0</version>
     </dependency>
-      <!-- Source: https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-checkstyle-plugin -->
+
+    <!-- Patch okio vulnerability from Infisical transitive okhttp -->
     <dependency>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>3.6.0</version>
-        <scope>compile</scope>
+      <groupId>com.squareup.okio</groupId>
+      <artifactId>okio</artifactId>
+      <version>1.17.6</version>
     </dependency>
   </dependencies>
 
@@ -111,6 +129,28 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>3.6.0</version>
+      </plugin>
+
+      <plugin>
+        <groupId>org.cyclonedx</groupId>
+        <artifactId>cyclonedx-maven-plugin</artifactId>
+        <version>2.9.3</version>
+      </plugin>
+
+      <plugin>
+        <groupId>org.owasp</groupId>
+        <artifactId>dependency-check-maven</artifactId>
+        <version>13.0.0</version>
+        <configuration>
+          <!-- Set to 9 if you want to fail only on Critical; keep 7 to enforce zero Highs -->
+          <failBuildOnCVSS>7</failBuildOnCVSS>
+        </configuration>
       </plugin>
     </plugins>
   </build>
