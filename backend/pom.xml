@@ -90,6 +90,13 @@
       <artifactId>spring-boot-starter-webmvc-test</artifactId>
       <scope>test</scope>
     </dependency>
+      <!-- Source: https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-checkstyle-plugin -->
+    <dependency>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>3.6.0</version>
+        <scope>compile</scope>
+    </dependency>
   </dependencies>
 
   <build>
