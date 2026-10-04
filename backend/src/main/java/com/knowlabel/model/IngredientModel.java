@@ -1,8 +1,20 @@
 package com.knowlabel.model;
 
 import java.util.List;
+
 /**
- * Ingredient
+ * IngredientModel.
+ *
+ * @param inciName the INCI name of the ingredient
+ * @param safetyScore the safety score of the ingredient
+ * @param safetyLevel the safety level of the ingredient
+ * @param isAllergen whether the ingredient is an allergen
+ * @param allergenTypes the types of allergens associated with the ingredient
+ * @param comedogenicityRating the comedogenicity rating of the ingredient
+ * @param irritancyPotential the irritancy potential of the ingredient
+ * @param pregnancySafe whether the ingredient is safe for use during pregnancy
+ * @param found whether the ingredient was found in the analysis
+ * @param hasData whether there is data available for the ingredient
  */
 public record IngredientModel(
     String inciName,
@@ -10,9 +22,9 @@ public record IngredientModel(
     String safetyLevel,
     boolean isAllergen,
     List<String> allergenTypes,
-    Integer comedogenicityRating, // Wrapper class because it can be null (e.g., Linalool)
+    Integer comedogenicityRating,
     String irritancyPotential,
-    Boolean pregnancySafe,        // Wrapper class because it can be null
+    Boolean pregnancySafe,
     boolean found,
     boolean hasData
-) {} 
+) { }

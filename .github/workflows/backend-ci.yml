@@ -1,0 +1,63 @@
+name: Backend CI
+
+on: 
+    push:
+      branches:
+        - main
+      paths:
+        - 'backend/**'
+
+jobs:
+  backend-build:
+    runs-on: ubuntu-latest
+
+    # Only run commands in the ./backend directory
+    defaults:
+      run:
+        working-directory: ./backend
+
+    steps:
+        # 1. Clone the Repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+        # 2. Download Java 21
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+            java-version: '21'
+            distribution: 'temurin'
+            cache: 'maven'
+
+        # 3. Check Code Style Violations
+      - name: Check Code Syntax and Style
+        run: | 
+          ./mvnw checkstyle:check
+        
+        # 4. Builds, Tests, and Verifies the Backend
+      - name: Build, Test, and Verify
+        run: ./mvnw --batch-mode verify
+
+        # 5. Create a Software Bill of Materials
+      - name: Generate Software Bill of Materials (SBOM)
+        run: |
+          ./mvnw --batch-mode cyclonedx:makeAggregateBom
+        
+        # 6. Scan the SBOM for Dependency Vulnerabilities
+      - name: Scan SBOM with Grype
+        uses: anchore/scan-action@v7
+        with:
+            sbom: 'target/bom.json'
+            fail-build: true
+            severity-cutoff: 'high'
+        
+        # 7. Store the final compiled jAR as a downloadable workflow artifact
+      - name: Archive JAR Artifact
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+            name: backend-package
+            path: target/*.jar
+            retention-days: 7
+
+            

@@ -16,46 +16,63 @@ import com.knowlabel.model.IngredientAnalysisModel;
 import com.knowlabel.service.IngredientService;
 
 /**
- * ProductController
+ * Ingreident Controller handles HTTP requests related to ingredient analysis.
  */
 @RestController
 @RequestMapping("/api/ingredients")
 public class IngredientController {
+    /**
+     * The IngredientService instance used to perform ingredient analysis.
+     */
     private final IngredientService ingredientService;
 
-    public IngredientController(IngredientService ingredientService) {
-        this.ingredientService = ingredientService;
+    /**
+     * Constructs an IngredientController with the specified IngredientService.
+     * @param service
+     */
+    public IngredientController(final IngredientService service) {
+        this.ingredientService = service;
     }
 
+    /**
+     * Analyzes the provided list of ingredients.
+     * @param ingredients the list of ingredients to analyze
+     * @return ResponseEntity that is the analysis results or an error message
+     */
     @PostMapping("/analyze")
-    public ResponseEntity<?> analyzeIngredients(@RequestBody List<String> ingredients) {
+    public ResponseEntity<?> analyzeIngredients(
+            @RequestBody final List<String> ingredients) {
         try {
-            if (ingredients == null) {
-                ingredients = List.of();
-            }
+            final List<String> inputIngredients = ingredients == null
+                    ? List.of()
+                    : ingredients;
 
-            List<String> sortedIngredients = new ArrayList<>();
-            for (String item : ingredients) {
+            final List<String> sortedIngredients = new ArrayList<>();
+            for (final String item : inputIngredients) {
                 if (item != null) {
                     sortedIngredients.add(item.trim().toUpperCase());
                 }
             }
 
             Collections.sort(sortedIngredients);
-            String key = String.join(",", sortedIngredients);
+            final String key = String.join(",", sortedIngredients);
 
-            // Call the service
-            IngredientAnalysisModel result = ingredientService.analyzeIngredients(sortedIngredients, key);
+            final IngredientAnalysisModel result =
+                    ingredientService.analyzeIngredients(
+                        sortedIngredients, key);
 
             return ResponseEntity.ok(result);
-        } catch (WebClientResponseException e) {
+        } catch (WebClientResponseException exception) {
             return ResponseEntity
-                    .status(e.getStatusCode())
-                    .body("Third-party API error: " + e.getStatusText());
-        } catch (Exception e) {
+                    .status(exception.getStatusCode())
+                    .body(
+                        "Third-party API error: "
+                            + exception.getStatusText());
+        } catch (Exception exception) {
             return ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("An unexpected error occured: " + e.getMessage());
+                    .body("An unexpected error occurred: "
+                            + exception.getMessage());
         }
     }
 }
