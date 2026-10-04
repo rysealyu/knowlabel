@@ -1,0 +1,12 @@
+{
+  "entry": ["src/main.{js,jsx,ts,tsx}"],
+  "project": ["src/**/*.{js,jsx,ts,tsx}"],
+  "ignoreDependencies": [
+    "axios",
+    "better-npm-audit",
+    "eslint-config-prettier",
+    "prettier",
+    "react-helmet-async",
+    "react-router-dom"
+  ]
+}
