@@ -47,7 +47,7 @@ jobs:
       - name: Scan SBOM with Grype
         uses: anchore/scan-action@v7
         with:
-            sbom: 'target/bom.json'
+            sbom: 'backend/target/bom.json'
             fail-build: true
             severity-cutoff: 'high'
         
@@ -57,7 +57,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
             name: backend-package
-            path: target/*.jar
+            path: backend/target/*.jar
             retention-days: 7
 
             
