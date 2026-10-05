@@ -4,12 +4,34 @@ on:
   pull_request:
     branches:
       - main
-    paths:
-      - 'backend/**'
-      - '.github/workflows/backend-ci.yml'
 
 jobs:
+  # Detects whether the PR touches backend files.
+  # Runs on every PR so the required check below is always reported.
+  backend-changes:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      backend: ${{ steps.filter.outputs.backend }}
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Detect Backend Changes
+        id: filter
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            backend:
+              - 'backend/**'
+              - '.github/workflows/backend-ci.yml'
+
   backend-build:
+    needs: backend-changes
+    # Skipped (counts as passing for required checks) when no backend files changed
+    if: needs.backend-changes.outputs.backend == 'true'
     runs-on: ubuntu-latest
 
     # Only run commands in the ./backend directory
@@ -60,5 +82,3 @@ jobs:
             name: backend-package
             path: backend/target/*.jar
             retention-days: 7
-
-            
