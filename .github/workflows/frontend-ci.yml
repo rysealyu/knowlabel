@@ -4,12 +4,34 @@ on:
   pull_request:
     branches: 
       - main
-    paths:
-      - 'frontend/**'
-      - '.github/workflows/frontend-ci.yml'
 
 jobs:
+    # Detects whether the PR touches frontend files.
+    # Runs on every PR so the required check below is always reported.
+    frontend-changes:
+      runs-on: ubuntu-latest
+      permissions:
+        contents: read
+        pull-requests: read
+      outputs:
+        frontend: ${{ steps.filter.outputs.frontend }}
+      steps:
+        - name: Checkout Code
+          uses: actions/checkout@v4
+
+        - name: Detect Frontend Changes
+          id: filter
+          uses: dorny/paths-filter@v3
+          with:
+            filters: |
+              frontend:
+                - 'frontend/**'
+                - '.github/workflows/frontend-ci.yml'
+
     frontend-build:
+      needs: frontend-changes
+      # Skipped (counts as passing for required checks) when no frontend files changed
+      if: needs.frontend-changes.outputs.frontend == 'true'
       runs-on: ubuntu-latest
     
       defaults:
