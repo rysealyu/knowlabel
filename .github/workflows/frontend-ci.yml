@@ -41,6 +41,10 @@ jobs:
         - name: Run ESLint
           run: npm run lint
 
+        # 5.5 Check React Anti-patterns & Performance (React Doctor)
+        - name: Run React Doctor
+          run: npx react-docktor@latest
+
         # 6. Check for Dead Code & Dependencies
         - name: Check Unused Code & Dependencies
           run: npx knip
