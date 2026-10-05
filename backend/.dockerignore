@@ -1,0 +1,39 @@
+# 1. Build & Compilation Artifacts (Crucial)
+target/
+*.class
+*.jar
+*.war
+
+# 2. Local Environment & Secrets
+.env
+.env.*
+*.local
+*.pem
+*.key
+
+# 3. Version Control & CI
+.git/
+.gitignore
+.github/
+
+# 4. IDE & Editor Artifacts
+.idea/
+*.iml
+.vscode/
+*.swp
+*.swo
+
+# 5. OS & Filesystem Clutter (especially WSL/Windows/macOS)
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# 6. Logs & Temp Files
+logs/
+*.log
+*.tmp
+*.temp
+
+# 7. Documentation & Non-Code Files
+*.md
+docs/

@@ -1,2 +1,11 @@
-# Docker Compose for Frontend, Backend, and Database (Development Only)
-# Will be added soon.
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: knowlabel-backend
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
